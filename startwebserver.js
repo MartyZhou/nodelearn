@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
 	    message += '\nGit add *';
 	    message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
 
-	    exec('git commit -m "test commit"', (err, stdout, stderr) => {
+	    exec('git commit -m "another commit"', (err, stdout, stderr) => {
 		message += '\nGit commit';
 		message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
 
