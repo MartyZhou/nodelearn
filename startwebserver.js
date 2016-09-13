@@ -1,6 +1,5 @@
 const http = require('http');
-const spawn = require('child_process').spawn;
-const ls = spawn('git', ['status']);
+const exec = require('child_process').exec;
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -10,27 +9,29 @@ const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'text/plain');
    
     var message = 'test message';
-ls.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-    message = data;
-//     res.end('Hello World\n' + data);
-});
 
-ls.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}`);
-    //     res.end('Hello World Error\n');
-    message = data;
-});
+    exec('git status', (err, stdout, stderr) => {
+	message += '\nGit status';
+	message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
 
-ls.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-    //     res.end('Hello World child process exited\n');
-    message = 'child process exited with code ' + code;
-});
+	// add
+	exec('git add *', (err, stdout, stderr) => {
+	    message += '\nGit add *';
+	    message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
 
-    setTimeout(()=>{
-	res.end(message);
-    }, 2000);
+	    exec('git commit -m "test commit"', (err, stdout, stderr) => {
+		message += '\nGit commit';
+		message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
+
+		exec('git push https://martyzhou:4150will@github.com/MartyZhou/nodelearn.git', (err, stdout, stderr) => {
+		    message += '\nGit push';
+		    message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
+		    
+		});
+	    });
+	res.end(message + '\n end of message');
+	});
+    });
     
 });
 
