@@ -11,10 +11,6 @@ const server = http.createServer((req, res) => {
    
     var message = 'test message';
 
-    message += JSON.stringify(req);
-
-    /*
-
     exec('git status', (err, stdout, stderr) => {
 	message += '\nGit status';
 	message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
@@ -38,10 +34,6 @@ const server = http.createServer((req, res) => {
 	    });
 	});
     });
-
-    */
-
-    res.end(message);
     
 });
 
