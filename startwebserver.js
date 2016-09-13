@@ -5,10 +5,13 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
+    
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
    
     var message = 'test message';
+
+    message += JSON.stringify(req);
 
     exec('git status', (err, stdout, stderr) => {
 	message += '\nGit status';
