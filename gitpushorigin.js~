@@ -1,5 +1,5 @@
 const spawn = require('child_process').spawn;
-const ls = spawn('git', ['push','https://martyzhou:4150will@github.com/MartyZhou/nodelearn.git', '-u', 'origin', 'master']);
+const ls = spawn('git', ['push', '-u', 'origin', 'master']);
 
 ls.stdout.on('data', (data) => {
   console.log(`stdout: ${data}`);
