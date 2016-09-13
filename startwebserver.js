@@ -26,10 +26,11 @@ const server = http.createServer((req, res) => {
 		exec('git push https://martyzhou:4150will@github.com/MartyZhou/nodelearn.git', (err, stdout, stderr) => {
 		    message += '\nGit push';
 		    message +=  '\n' + stdout + '\nerr' + err + '\nstderr' + stderr;
+
+		    res.end(message + '\n end of message');
 		    
 		});
 	    });
-	res.end(message + '\n end of message');
 	});
     });
     
